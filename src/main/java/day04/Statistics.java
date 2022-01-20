@@ -10,6 +10,7 @@ public class Statistics {
         Map<Character,Integer> statistic = new TreeMap<>();
         for (Character c: s.toCharArray()) {
             if (vowel.contains(String.valueOf(c))) {
+
                 if (!statistic.keySet().contains(c)) {
                     statistic.put(c, 0);
                 }

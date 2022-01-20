@@ -11,7 +11,7 @@ class StatisticsTest {
     @Test
     void testStatistics(){
         Statistics statistics = new Statistics();
-        Map<Character,Integer> result =statistics.getStatistic("BlaBlaaa");
+        Map<Character,Integer> result =statistics.getStatistic("uBiilaBlaaea");
         System.out.println(result);
 
         assertEquals(4,result.get('a'));
