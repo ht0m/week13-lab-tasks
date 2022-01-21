@@ -1,6 +1,8 @@
 package day02;
 
 import java.io.IOException;
+import java.lang.reflect.AnnotatedArrayType;
+import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -9,13 +11,13 @@ public class Quiz {
     private static final String SEPARATOR = " ";
 
     private Map<String, List<Character>> playersAndAnswers = new HashMap<>();
-    private List<Character> solutions = new ArrayList<>();
+
+    private List<Character> solutions;
 
     public void readFile(Path path) {
         try (Scanner scanner = new Scanner(path)) {
-            for (Character c : scanner.nextLine().toCharArray()) {
-                solutions.add(c);
-            }
+            solutions = getSolutionListFromString(scanner.nextLine());
+
             while (scanner.hasNextLine()) {
                 String[] fields = scanner.nextLine().split(SEPARATOR);
                 if (!playersAndAnswers.containsKey(fields[0])) {
@@ -23,7 +25,6 @@ public class Quiz {
                 }
                 playersAndAnswers.get(fields[0]).add(fields[1].charAt(0));
             }
-
         } catch (IOException ioe) {
             throw new IllegalStateException("Error while working");
         }
@@ -44,6 +45,7 @@ public class Quiz {
                 if (checkAnswers(entry.getKey(), i + 1)) {
                     playerAndPoint.put(entry.getKey(), playerAndPoint.get(entry.getKey()) + i + 1);
                 }
+
             }
         }
         String bestPlayer = "";
@@ -55,6 +57,14 @@ public class Quiz {
             }
         }
         return bestPlayer;
+    }
+
+    private List<Character> getSolutionListFromString(String solutionLine) {
+        List<Character> result = new ArrayList<>();
+        for (Character c : solutionLine.toCharArray()) {
+            result.add(c);
+        }
+        return result;
     }
 
     public static void main(String[] args) {
