@@ -14,6 +14,10 @@ public class TransferPerClient {
         this.numberOfTransaction = numberOfTransaction;
     }
 
+    public TransferPerClient(String clientId) {
+        this.clientId = clientId;
+    }
+
     public String getClientId() {
         return clientId;
     }
@@ -22,13 +26,9 @@ public class TransferPerClient {
         return sum;
     }
 
-    public void increase(int amount) {
+    public void modify (int amount) {
         sum += amount;
         numberOfTransaction++;
-    }
-
-    public void decrease(int amount) {
-        increase(-1 * amount);
     }
 
     public int getNumberOfTransaction() {

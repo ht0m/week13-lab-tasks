@@ -18,22 +18,21 @@ public class transferAggregator {
                 String target = fields[1];
                 int amount = Integer.parseInt(fields[2]);
 
-                if (!transfersMap.containsKey(source)) {
-                    transfersMap.put(source, new TransferPerClient(source, amount * -1, 1));
-                } else {
-                    transfersMap.get(source).decrease(amount);
-                }
-
-                if (!transfersMap.containsKey(target)) {
-                    transfersMap.put(target, new TransferPerClient(target, amount, 1));
-                } else {
-                    transfersMap.get(target).increase(amount);
-                }
+                putToMap(source, amount * -1);
+                putToMap(target, amount);
             }
-
         } catch (IOException ioe) {
-            throw new IllegalStateException("Error while working");
+            throw new IllegalStateException("Error while reading file!");
         }
+    }
+
+    private void putToMap(String id, int amount) {
+        TransferPerClient actual = transfersMap.get(id);
+        if (actual == null) {
+            actual = new TransferPerClient(id);
+            transfersMap.put(id, actual);
+        }
+        actual.modify(amount);
     }
 
     private void transferListBuilder() {
